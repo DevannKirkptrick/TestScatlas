@@ -5,6 +5,7 @@ var constants = {
 	pointsSheetName: 'Points',
   polygonsSheetName: 'Polygons',
   polylinesSheetName: 'Polylines',
+  testlayersSheetName: 'Testlayers',
   /* OPTIONS */
 	// Map Info
   _mapTitle: 'Map Title',
