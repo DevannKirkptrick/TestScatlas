@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+	<meta charset="UTF-8">	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<html>
+<head>
+	<title>Loading...</title>
+	
+	<!-- jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+	<!-- leaflet-->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+		integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+		crossorigin=""/>
+	<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+		integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+		crossorigin=""></script>
+
+	<!-- leaflet-providers -->
+    <script src="scripts/leaflet-providers/leaflet-providers.js"></script>
+	<!-- leaflet-hom -->
+    <link rel="stylesheet" href="scripts/Leaflet.defaultextent-master/dist/leaflet.defaultextent.css" />
+    <script src="scripts/Leaflet.defaultextent-master/dist/leaflet.defaultextent.js"></script>
+  
+    <!-- Tabletop -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tabletop.js/1.5.1/tabletop.js"></script>
+	
+	<!-- Font Awesome -->
+    <script src="https://use.fontawesome.com/77cd9dd4f5.js"></script>
+
+    <!-- Leaflet.awesome-markers -->
+    <link rel="stylesheet" type="text/css" href="scripts/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css">
+    <script type="text/javascript" src="scripts/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
+  
+    <!-- Leaflet.loadingcontrol -->
+    <link rel="stylesheet" href="scripts/Leaflet.loading-master/src/Control.Loading.css" />
+    <script src="scripts/Leaflet.loading-master/src/Control.Loading.js"></script>
+  
+    <!-- Markercluster -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.4/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.4/dist/MarkerCluster.Default.css">
+    <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.0.4/dist/leaflet.markercluster.js"></script>
+	
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+	
+	<!-- Locate Control -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.60.0/L.Control.Locate.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-locatecontrol/0.60.0/L.Control.Locate.min.js"></script>
+
+    <!-- jQuery-CSV -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+ 
+    <!-- Custom style sheet -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!-- Layer Support for Marker Cluster -->
+    <script src="https://unpkg.com/leaflet.markercluster.layersupport@1.0.3/dist/leaflet.markercluster.layersupport.js"></script>
+	
+	<!-- fullscreencontrol -->
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+	
+	<!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
+	</head>
+	
+	<body>
+	
+	<div class="loader">Loading...</div>
+    <div id="map"></div>
+	
+	<script type="text/javascript">
+    var map = L.map('map', {
+      attributionControl: false,
+      closePopupOnClick: true,
+      worldCopyJump: true,
+      zoomControl: true,
+      scrollWheelZoom: true,
+      defaultExtentControl: true,
+      fullscreenControl: {
+        pseudoFullscreen: false 
+        }
+    }).setView([35.9078, 127.7669], 5);
+	
+	var loadingControl = L.Control.loading({
+      separate: true
+    });
+    map.addControl(loadingControl);
+	
+	</script>
+    <script type="text/javascript" src="google-doc-url.js"></script>
+    <script type="text/javascript" src="scripts/constants.js"></script>
+    <script type="text/javascript" src="scripts/palette.js"></script>
+    <script type="text/javascript" src="scripts/polylabel.js"></script>
+    <script type="text/javascript" src="scripts/procsv.js"></script>
+    </script>  <script type="text/javascript" src="scripts/map.js"></script>
+
+    </body>
+    </html>
