@@ -60,44 +60,12 @@ $(window).on('load', function() {
 
     map.setView(center, zoom);
   }
-
-
-  /**
-   * Given a collection of points, determines the layers based on 'Group'
-   * column in the spreadsheet.
-   */
-  function determineLayers(points) {
-    var layerNamesFromSpreadsheet = [];
-    var layers = {};
-    for (var i in points) {
-      var pointLayerNameFromSpreadsheet = points[i].Group;
-      if (layerNamesFromSpreadsheet.indexOf(pointLayerNameFromSpreadsheet) === -1) {
-        markerColors.push(
-          points[i]['Marker Icon'].indexOf('.') > 0
-          ? points[i]['Marker Icon']
-          : points[i]['Marker Color']
-        );
-        layerNamesFromSpreadsheet.push(pointLayerNameFromSpreadsheet);
-      }
-    }
-
-    // if none of the points have named layers or if there was only one name, return no layers
-    if (layerNamesFromSpreadsheet.length === 1) {
-      layers = undefined;
-    } else {
-      for (var i in layerNamesFromSpreadsheet) {
-        var layerNameFromSpreadsheet = layerNamesFromSpreadsheet[i];
-        layers[layerNameFromSpreadsheet] = L.layerGroup();
-        layers[layerNameFromSpreadsheet].addTo(map);
-      }
-    }
-    return layers;
   }
 
   /**
    * Assigns points to appropriate layers and clusters them if needed
    */
-  function mapPoints(points, layers) {
+  function mapPoints(points) {
     var markerArray = [];
     // check that map has loaded before adding points to it?
     for (var i in points) {
@@ -130,59 +98,10 @@ $(window).on('load', function() {
           (point['Image'] ? ('<img src="' + point['Image'] + '"><br>') : '') +
           point['Description']);
 
-        if (layers !== undefined && layers.length !== 1) {
-          marker.addTo(layers[point.Group]);
-        }
-
-        markerArray.push(marker);
+          marker.addTo([point.Group]);
       }
     }
-
-    var group = L.featureGroup(markerArray);
-    var clusters = (getSetting('_markercluster') === 'on') ? true : false;
-
-    // if layers.length === 0, add points to map instead of layer
-    if (layers === undefined || layers.length === 0) {
-      map.addLayer(
-        clusters
-        ? L.markerClusterGroup().addLayer(group).addTo(map)
-        : group
-      );
-    } else {
-      if (clusters) {
-        // Add multilayer cluster support
-        multilayerClusterSupport = L.markerClusterGroup.layerSupport();
-        multilayerClusterSupport.addTo(map);
-
-        for (i in layers) {
-          multilayerClusterSupport.checkIn(layers[i]);
-          layers[i].addTo(map);
-        }
-      }
-
-      var pos = (getSetting('_pointsLegendPos') == 'off')
-        ? 'topleft'
-        : getSetting('_pointsLegendPos');
-
-      var pointsLegend = L.control.layers(null, layers, {
-        collapsed: false,
-        position: pos,
-      });
-
-      if (getSetting('_pointsLegendPos') !== 'off') {
-        //console.log(pointsLegend)
-        pointsLegend.addTo(map);
-        pointsLegend._container.id = 'points-legend';
-        pointsLegend._container.className += ' ladder';
-      }
-    }
-
-    $('#points-legend').prepend('<h6 class="pointer">' + getSetting('_pointsLegendTitle') + '</h6>');
-    if (getSetting('_pointsLegendIcon') != '') {
-      $('#points-legend h6').prepend('<span class="legend-icon"><i class="fa '
-        + getSetting('_pointsLegendIcon') + '"></i></span>');
-    }
-
+  
     var displayTable = getSetting('_displayTable') == 'on' ? true : false;
 
     // Display table with active points if specified
@@ -619,12 +538,6 @@ $(window).on('load', function() {
     var points = mapData.sheets(constants.pointsSheetName);
     var layers;
     var group = '';
-    if (points && points.elements.length > 0) {
-      layers = determineLayers(points.elements);
-      group = mapPoints(points.elements, layers);
-    } else {
-      completePoints = true;
-    }
 
     centerAndZoomMap(group);
 
