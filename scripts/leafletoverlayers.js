@@ -1751,3 +1751,9 @@ var overLayers = [
 		}
 	];
 
+var panelLayers = new L.Control.layers(null, overLayers, {
+	collapsed: false,
+	collapsibleGroups: true
+});
+
+map.addControl(panelLayers);
